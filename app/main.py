@@ -3,7 +3,7 @@ from CompressingRotatingFileHandler import CompressingRotatingFileHandler
 from LogItem import LogItem
 from fastapi import FastAPI
 
-logger = logging.getLogger('appender_logger')
+logger = logging.getLogger('log_appender')
 
 app = FastAPI()
 
