@@ -28,9 +28,7 @@ def log_appender(logItem: LogItem):
         else:
             formatter = logging.Formatter("[%(levelname)s]%(message)s")
         fileHandler.setFormatter(formatter)
-        logger.addHandler(fileHandler)
         consoleHandler.setFormatter(formatter)
-        logger.addHandler(consoleHandler)
         addTimeField = logItem.add_time_field
 
     logger.log(logItem.level.value, logItem.message)
