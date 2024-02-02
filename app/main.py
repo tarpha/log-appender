@@ -5,7 +5,7 @@ from fastapi import FastAPI
 
 addTimeField = True
 logger = logging.getLogger('log_appender')
-formatter = logging.Formatter("[%(levelname)s]%(message)s")
+formatter = logging.Formatter("[%(asctime)s][%(levelname)s]%(message)s", "%Y-%m-%d %H:%M:%S")
 fileHandler = CompressingRotatingFileHandler("../logs/log_appender.log", maxBytes=10000000, backupCount=9)
 fileHandler.setFormatter(formatter)
 logger.addHandler(fileHandler)
