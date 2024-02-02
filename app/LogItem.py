@@ -5,4 +5,4 @@ from typing import Union
 class LogItem(BaseModel):
     level: Union[LogLevel, None] = LogLevel.ERROR
     message: str
-    add_time_field: Union[bool, None] = False
+    add_time_field: Union[bool, None] = True

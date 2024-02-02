@@ -3,7 +3,7 @@ from CompressingRotatingFileHandler import CompressingRotatingFileHandler
 from LogItem import LogItem
 from fastapi import FastAPI
 
-addTimeField = False
+addTimeField = True
 logger = logging.getLogger('log_appender')
 formatter = logging.Formatter("[%(levelname)s]%(message)s")
 fileHandler = CompressingRotatingFileHandler("../logs/log_appender.log", maxBytes=10000000, backupCount=9)
@@ -32,4 +32,4 @@ def log_appender(logItem: LogItem):
         addTimeField = logItem.add_time_field
 
     logger.log(logItem.level.value, logItem.message)
-    return {"log_devel": logItem.level, "log_message": logItem.message}
+    return {"log_level": logItem.level, "log_message": logItem.message}
