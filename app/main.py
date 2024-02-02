@@ -32,4 +32,4 @@ def log_appender(logItem: LogItem):
         addTimeField = logItem.add_time_field
 
     logger.log(logItem.level.value, logItem.message)
-    return {"log_devel": logItem.level, "log_message": logItem.message}
+    return {"log_level": logItem.level, "log_message": logItem.message}
