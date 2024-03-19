@@ -32,16 +32,7 @@ def log_appender_namespace(namespace: str, logItem: LogItem):
 def append(logItem: LogItem, namespace: str):
     global addTimeField
     global gNamespace
-    if(gNamespace != namespace):
-        global logfilename
-        gNamespace = namespace
-        if(namespace == 'default'):
-           logfilename = "../logs/log_appender.log"
-        else:
-            logfilename = "../logs/log_appender_{namespace}.log".format(namespace=namespace)
-        fileHandler = CompressingRotatingFileHandler(logfilename, maxBytes=10000000, backupCount=9)
-        fileHandler.setFormatter(formatter)
-        logger.addHandler(fileHandler)
+    global formatter
     if(addTimeField != logItem.add_time_field):
         if(logItem.add_time_field):
             formatter = logging.Formatter("[%(asctime)s][%(levelname)s]%(message)s", "%Y-%m-%d %H:%M:%S")
@@ -50,5 +41,15 @@ def append(logItem: LogItem, namespace: str):
         fileHandler.setFormatter(formatter)
         consoleHandler.setFormatter(formatter)
         addTimeField = logItem.add_time_field
+    if(gNamespace != namespace):
+        gNamespace = namespace
+        if(namespace == 'default'):
+            logfilename = "../logs/log_appender.log"
+        else:
+            logfilename = "../logs/log_appender_{namespace}.log".format(namespace=namespace)
+        fileHandler = CompressingRotatingFileHandler(logfilename, maxBytes=10000000, backupCount=9)
+        fileHandler.setFormatter(formatter)
+        logger.addHandler(fileHandler)
+    
     logger.log(logItem.level.value, logItem.message)
     return {"log_level": logItem.level, "log_message": logItem.message}
