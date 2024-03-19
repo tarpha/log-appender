@@ -49,6 +49,7 @@ def append(logItem: LogItem, namespace: str):
             logfilename = "../logs/log_appender_{namespace}.log".format(namespace=namespace)
         fileHandler = CompressingRotatingFileHandler(logfilename, maxBytes=10000000, backupCount=9)
         fileHandler.setFormatter(formatter)
+        logger.handlers.clear()
         logger.addHandler(fileHandler)
     
     logger.log(logItem.level.value, logItem.message)
