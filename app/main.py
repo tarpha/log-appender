@@ -30,7 +30,7 @@ def log_appender_namespace(namespace: str, logItem: LogItem):
     logItem.namespace = namespace
     if(gNamespace != namespace):
         gNamespace = namespace
-        fileHandler = CompressingRotatingFileHandler("../logs/log_appender_{namespace}.log".format(namespace)
+        fileHandler = CompressingRotatingFileHandler("../logs/log_appender_{namespace}.log".format(namespace=namespace)
                                                      , maxBytes=10000000, backupCount=9)
     return append(logItem)
 
