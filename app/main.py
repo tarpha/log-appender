@@ -4,7 +4,6 @@ from LogItem import LogItem
 from fastapi import FastAPI
 
 addTimeField = True
-gNamespace = 'default'
 logger = logging.getLogger('log_appender')
 formatter = logging.Formatter("[%(asctime)s][%(levelname)s]%(message)s", "%Y-%m-%d %H:%M:%S")
 fileHandler = CompressingRotatingFileHandler("../logs/log_appender.log", maxBytes=10000000, backupCount=9)
@@ -41,16 +40,13 @@ def append(logItem: LogItem, namespace: str):
         fileHandler.setFormatter(formatter)
         consoleHandler.setFormatter(formatter)
         addTimeField = logItem.add_time_field
-    if(gNamespace != namespace):
-        gNamespace = namespace
-        if(namespace == 'default'):
-            logfilename = "../logs/log_appender.log"
-        else:
-            logfilename = "../logs/log_appender_{namespace}.log".format(namespace=namespace)
-        fileHandler = CompressingRotatingFileHandler(logfilename, maxBytes=10000000, backupCount=9)
-        fileHandler.setFormatter(formatter)
-        logger.handlers.clear()
-        logger.addHandler(fileHandler)
-    
+    if(namespace == 'default'):
+        logfilename = "../logs/log_appender.log"
+    else:
+        logfilename = "../logs/log_appender_{namespace}.log".format(namespace=namespace)
+    fileHandler = CompressingRotatingFileHandler(logfilename, maxBytes=10000000, backupCount=9)
+    fileHandler.setFormatter(formatter)
+    logger.handlers.clear()
+    logger.addHandler(fileHandler)
     logger.log(logItem.level.value, logItem.message)
     return {"log_level": logItem.level, "log_message": logItem.message}
