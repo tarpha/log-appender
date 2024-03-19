@@ -35,7 +35,7 @@ def append(logItem: LogItem, namespace: str):
     if(gNamespace != namespace):
         global logfilename
         gNamespace = namespace
-        if(namespace == 'default):
+        if(namespace == 'default'):
            logfilename = ../logs/log_appender.log
         else:
             logfilename = "../logs/log_appender_{namespace}.log".format(namespace=namespace)
